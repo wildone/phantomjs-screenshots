@@ -1,0 +1,32 @@
+{
+  "name": "phantomjs-screenshots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildone/phantomjs-screenshots.git"
+  },
+  "keywords": [
+    "phantomjs",
+    "screenshots",
+    "url2png",
+    "responsive"
+  ],
+  "author": "max",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wildone/phantomjs-screenshots/issues"
+  },
+  "homepage": "https://github.com/wildone/phantomjs-screenshots#readme",
+  "devDependencies": {
+    "async": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-exec": "^0.4.6",
+    "load-grunt-tasks": "^3.2.0"
+  }
+}
