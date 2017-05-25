@@ -10,24 +10,27 @@
     }
 
     var settings = {
-        url: args[1], 
-        output_dir: (args[2] != undefined ? args[2] : args[1]), 
-        zoom: (args[3] != undefined ? args[3] : 1),
+        url: args[1],
+        output_dir: (args[2] != undefined ? args[2] : args[1]),
+        auth: (args[3] != undefined ? args[3] : ""),
+        zoom: (args[4] != undefined ? args[4] : 1),
         sizes: [
             [375, 667, 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'],
             [320, 568, 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53'],
-            [320, 480],
-            [320, 568],
-            [600, 1024],
-            [1024, 768],
-            [1280, 800],
-            [1440, 900]
+            [320, 480, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [320, 568, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [600, 1024, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [1024, 768, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [1280, 800, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [1440, 900, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [1920, 1080, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"],
+            [2560, 1600, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"]
         ]
     };
 
     console.log("");
-    console.log("Settings:");
-    console.log(JSON.stringify(settings));
+    console.log("URL: " + settings.url);
+    // console.log(JSON.stringify(settings));
     console.log("");
 
 
@@ -43,23 +46,31 @@
         var zoom = (sizes[4] != undefined ? sizes[4] : settings.zoom);
         var w = (sizes[0] != undefined ? sizes[0] : 375);
         var h = (sizes[1] != undefined ? sizes[1] : 667);
-        
-        if (ua!='') {
-            page.settings.userAgent = ua;    
+
+        if (settings.auth != "") {
+            page.customHeaders = {'Authorization': 'Basic ' + btoa(settings.auth)};
         }
-        
+
+        if (ua!='') {
+            page.settings.userAgent = ua;
+        }
+
         page.onConsoleMessage = function(msg) {
-        return console.log(msg);
+            return console.log(msg);
         };
 
         page.viewportSize = {
             width: w,
             height: h
         };
-        page.zoomFactor = 5;
+
+        // page.zoomFactor = 5;
         page.open(settings.url, function (status) {
             var filename = sizes[0] + 'x' + sizes[1] + '.png';
-            page.render("./" + settings.output_dir +  "/" + filename);
+            var subpath = settings.url.replace("://","/").split("?")[0];
+            console.log("./" + settings.output_dir + "/" + subpath +  "/" + filename);
+            page.render("./" + settings.output_dir + "/" + subpath +  "/" + filename);
+
             page.close();
             callback.apply();
         });

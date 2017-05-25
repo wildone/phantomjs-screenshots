@@ -2,10 +2,11 @@ var system = require('system');
 var args = system.args;
 var settings = {
     url: args[1],
-    output_dir: (args[2] != undefined ? args[2] : "screenshots"),
-    zoom: (args[3] != undefined ? args[3] : 1),
-    height: (args[4] != undefined ? args[4] : 1200),
-    width: (args[5] != undefined ? args[5] : 1920),
+    auth: (args[2] != undefined ? args[2] : ""),
+    output_dir: (args[3] != undefined ? args[3] : "screenshots"),
+    zoom: (args[4] != undefined ? args[4] : 1),
+    height: (args[5] != undefined ? args[5] : 1200),
+    width: (args[6] != undefined ? args[6] : 1920),
     delayInMillis: 2000
 
 };
@@ -30,6 +31,12 @@ function getTimestamp() {
 
 
     page = require('webpage').create();
+
+    if (settings.auth != "") {
+        page.customHeaders = {'Authorization': 'Basic ' + btoa(settings.auth)};
+    }
+
+
     page.callSettings = settings;
     page.viewportSize = {
         width: settings.width,

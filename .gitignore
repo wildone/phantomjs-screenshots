@@ -42,3 +42,7 @@ dist
 app/vendor
 .DS_Store
 .sass-cache/
+build
+backup
+output
+compile.log

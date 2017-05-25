@@ -16,17 +16,46 @@
     "url2png",
     "responsive"
   ],
-  "author": "max",
-  "license": "ISC",
+  "author": "max barrass",
+  "license": "mit",
   "bugs": {
     "url": "https://github.com/wildone/phantomjs-screenshots/issues"
   },
   "homepage": "https://github.com/wildone/phantomjs-screenshots#readme",
+  "dependencies": {
+    "async": "^2.4.1",
+    "child_process": "^1.0.2",
+    "grunt": "^1.0.1",
+    "gulp": "^3.9.0",
+    "gulp-debug": "^3.1.0",
+    "gulp-each": "^0.5.0",
+    "gulp-foreach": "^0.1.0",
+    "gulp-help": "^1.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-print": "^2.0.1",
+    "gulp-rev": "^7.1.2",
+    "gulp-shell": "^0.6.3",
+    "gulp-zip": "^4.0.0",
+    "load-grunt-tasks": "^3.2.0",
+    "node": "0.0.0",
+    "npm-check": "^5.4.4",
+    "path": "^0.12.7",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14",
+    "pkg": "^3.0.5",
+    "prettyjson": "^1.2.1"
+  },
+  "pkg": {
+    "scripts": "./app/*.js",
+    "assets": "./app/*.js"
+  },
   "devDependencies": {
-    "async": "^1.0.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-exec": "^0.4.6",
-    "load-grunt-tasks": "^3.2.0"
-  }
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ]
 }

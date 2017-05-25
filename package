@@ -1,0 +1,6 @@
+#!/bin/sh
+echo "Packaging app..."
+
+./pkg gulpfile.js --out-dir ./build --debug >compile.log
+
+echo "compile.log created"
