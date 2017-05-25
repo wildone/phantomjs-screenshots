@@ -1,5 +1,6 @@
 var gulp            = require('gulp-help')(require('gulp')),
     gutil           = require('gulp-util'),
+    fs              = require('fs'),
     debug           = require('gulp-debug'),
     shell           = require('gulp-shell'),
     gulpif          = require('gulp-if'),
@@ -50,6 +51,7 @@ var config = {
  ***************************************************************/
 
 var runGulpManually = false;
+var isWin = /^win/.test(process.platform);
 
 (function main() {
 
@@ -150,17 +152,35 @@ function publicTasks() {
 
                         gutil.log("URL: " + url);
                         gutil.log("URL AUTH: " + urlauth.replace(/([a-zA-Z0-9])/g,"*")); //mask for print
-                        var binPath = phantomjs.path;
+                        var binPath =  phantomjs.path;
 
-                        var scriptPath = path.join(__dirname, config.dirs.app + '/urlResponsive2png.js');
+                        gutil.log(binPath);
 
-                        if (runGulpManually) {
-                            scriptPath = "urlResponsive2png.js";
+                        if (isWin) {
+                            binPath =  path.join(".","phantomjs.exe");
+                        } else {
+                            binPath =  path.join(".","phantomjs");
                         }
+
+                        gutil.log(binPath);
+
+                        fs.stat(binPath, function (err, stat) {
+                            if (err != null) {
+                                console.error("Need phantomjs executable in current folder");
+                            }
+                        });
+
+                        var scriptPath = path.join(".", "urlResponsive2png.js");
+
+                        fs.stat(scriptPath, function (err, stat) {
+                            if (err != null) {
+                                console.error("Need script [urlResponsive2png.js] in current folder");
+                            }
+                        });
 
                         var childArgs = [
                             scriptPath,
-                            url, config.dirs.dist + "/urlResponsive2png", urlauth
+                            url, config.dirs.dist, urlauth
                         ];
 
 

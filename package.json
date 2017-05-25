@@ -1,5 +1,5 @@
 {
-  "name": "phantomjs-screenshots",
+  "name": "makescreenshots",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -25,6 +25,7 @@
   "dependencies": {
     "async": "^2.4.1",
     "child_process": "^1.0.2",
+    "fs": "0.0.1-security",
     "grunt": "^1.0.1",
     "gulp": "^3.9.0",
     "gulp-debug": "^3.1.0",
@@ -46,13 +47,15 @@
     "prettyjson": "^1.2.1"
   },
   "pkg": {
-    "scripts": "./app/*.js",
-    "assets": "./app/*.js"
+    "scripts": [
+
+    ],
+    "assets": [
+      "app/*.js",
+      "node_modules/phantomjs-prebuilt/**/*"
+    ]
   },
-  "devDependencies": {
-    "phantomjs": "^2.1.7",
-    "phantomjs-prebuilt": "^2.1.14"
-  },
+  "bin": "gulpfile.js",
   "os": [
     "darwin",
     "linux",

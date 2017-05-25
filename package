@@ -1,6 +1,13 @@
 #!/bin/sh
+
+echo "Copying files..."
+
+cp node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs build/phantomjs
+cp app/urlResponsive2png.js build/urlResponsive2png.js
+cp urls.txt build/urls.txt
+
 echo "Packaging app..."
 
-./pkg gulpfile.js --out-dir ./build --debug >compile.log
+./pkg . gulpfile.js --out-dir ./build --debug >compile.log
 
 echo "compile.log created"
